@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 3v3 Sniper Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #canvas {
+            display: block;
+        }
+        #hud {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 14px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            z-index: 100;
+        }
+        #crosshair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(0, 255, 0, 0.7);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99;
+        }
+        #crosshair::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 8px;
+            background: rgba(0, 255, 0, 0.7);
+            transform: translate(-50%, -50%);
+        }
+        #teamInfo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 12px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        #instructions {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 12px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: #00ff00;
+            padding: 40px;
+            font-family: monospace;
+            border: 2px solid rgba(0, 255, 0, 0.5);
+            text-align: center;
+            display: none;
+            z-index: 200;
+        }
+        #gameOver h1 {
+            font-size: 36px;
+            margin: 0 0 20px 0;
+        }
+        #gameOver p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        #gameOver button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div id="crosshair"></div>
+    <div id="hud">
+        <div>TEAM ALPHA - Player</div>
+        <div id="health">HEALTH: 100</div>
+        <div id="ammo">AMMO: ∞</div>
+        <div id="kills">KILLS: 0</div>
+        <div id="fps">FPS: 0</div>
+    </div>
+    <div id="teamInfo">
+        <div style="color: #ff0000; margin-bottom: 10px;"><strong>TEAM BETA</strong></div>
+        <div id="enemyStatus">Loading...</div>
+        <div style="color: #00ff00; margin-top: 10px; border-top: 1px solid rgba(0, 255, 0, 0.3); padding-top: 10px;"><strong>TEAM ALPHA</strong></div>
+        <div id="allyStatus">Loading...</div>
+    </div>
+    <div id="instructions">
+        <div><strong>CONTROLS:</strong></div>
+        <div>WASD - Move | SPACE - Jump</div>
+        <div>MOUSE - Look Around</div>
+        <div>LEFT CLICK - Fire | RIGHT CLICK - Scope</div>
+    </div>
+    <div id="gameOver">
+        <h1 id="gameOverTitle">GAME OVER</h1>
+        <p id="gameOverMessage"></p>
+        <button onclick="location.reload()">RESTART</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
